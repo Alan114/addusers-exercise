@@ -8,39 +8,62 @@ const AddUser = props => {
   const nameInputRef = useRef();
   const ageInputRef = useRef();
 
-  const [userName, setUserName] = useState("");
-  const [age, setAge] = useState("");
+  // const [userName, setUserName] = useState("");
+  // const [age, setAge] = useState("");
   const [error, setError] = useState();
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(nameInputRef);
-    if (userName.trim().length === 0 || age.trim().length === 0) {
+    const enteredName = nameInputRef.current.value;
+    const enteredAge = ageInputRef.current.value;
+
+    //   if (userName.trim().length === 0 || age.trim().length === 0) {
+    //     setError({
+    //       title: "Invalid input",
+    //       message: "Please enter a valid name and age (non-empty values).",
+    //     });
+    //     return;
+    //   }
+    //   if (+age < 1) {
+    //     setError({
+    //       title: "Invalid age",
+    //       message: "Please enter a valid age (larger than 0).",
+    //     });
+    //     return;
+    //   }
+    //   props.onAddUser(userName, age);
+    //   setUserName("");
+    //   setAge("");
+    // };
+
+    if (enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
       setError({
         title: "Invalid input",
         message: "Please enter a valid name and age (non-empty values).",
       });
       return;
     }
-    if (+age < 1) {
+    if (+enteredAge < 1) {
       setError({
         title: "Invalid age",
         message: "Please enter a valid age (larger than 0).",
       });
       return;
     }
-    props.onAddUser(userName, age);
-    setUserName("");
-    setAge("");
+    props.onAddUser(enteredName, enteredAge);
+    nameInputRef.current.value = "";
+    ageInputRef.current.value = "";
+    // setUserName("");
+    // setAge("");
   };
 
-  const handleChangeUsername = e => {
-    setUserName(e.target.value);
-  };
+  // const handleChangeUsername = e => {
+  //   setUserName(e.target.value);
+  // };
 
-  const handleChangeAge = e => {
-    setAge(e.target.value);
-  };
+  // const handleChangeAge = e => {
+  //   setAge(e.target.value);
+  // };
 
   const handleError = () => {
     setError(null);
@@ -59,18 +82,18 @@ const AddUser = props => {
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username</label>
           <input
-            value={userName}
             id="username"
             type="text"
-            onChange={handleChangeUsername}
+            // value={userName}
+            // onChange={handleChangeUsername}
             ref={nameInputRef}
           />
           <label htmlFor="age">Age (Years)</label>
           <input
-            value={age}
             id="age"
             type="number"
-            onChange={handleChangeAge}
+            // value={age}
+            // onChange={handleChangeAge}
             ref={ageInputRef}
           />
           <Button type="submit">Add User</Button>
